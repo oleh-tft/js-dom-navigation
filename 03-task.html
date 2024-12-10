@@ -63,11 +63,6 @@
             <td>125</td>
             <td>100</td>
         </tr>
-        <tr>
-            <td>Итого</td>
-            <td></td>
-            <td></td>
-        </tr>
     </table>
 
     <div id="result"></div>
@@ -81,11 +76,21 @@
         Используйте любые методы, которые были рассмотрены на в прошлых уроках.
         */
         let table = document.querySelector("#statsTable");
+        let lastRow = table.lastElementChild.lastElementChild;
+        lastRow.outerHTML += "<tr><td>Итого</td><td></td><td></td></tr>";
+
         let sumRow = table.lastElementChild.lastElementChild.firstElementChild;
 
+        let sum1 = 0;
+        document.querySelectorAll("#statsTable td:nth-child(2)").forEach(i => sum1+=Number(i.textContent));
+        sumRow.nextElementSibling.textContent = sum1;
+        
         let sum2 = 0;
-        document.querySelectorAll("#statsTable td:nth-child(2)").forEach(i => sum2+=Number(i.textContent));
-        sumRow.nextElementSibling.textContent = sum2;
+        document.querySelectorAll("#statsTable td:nth-child(3)").forEach(i => sum2+=Number(i.textContent));
+        sumRow.nextElementSibling.nextElementSibling.textContent = sum2;
+
+        let high = sum1 > sum2 ? "1" : "2";
+        document.querySelector("#result").textContent = `Отдел ${high} сделал больше продаж`;
     </script>
 </body>
 </html>
